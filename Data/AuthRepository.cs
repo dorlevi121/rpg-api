@@ -12,9 +12,26 @@ namespace rpg.Data
             _context = context;
 
         }
-        public Task<ServiceResponse<string>> Login(string username, string password)
+        public async Task<ServiceResponse<string>> Login(string username, string password)
         {
-            throw new System.NotImplementedException();
+            ServiceResponse<string> response = new ServiceResponse<string>();
+            User user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            if (user == null)
+            {
+                response.success = false;
+                response.message = "User not found.";
+            }
+            else if (!this.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            {
+                response.success = false;
+                response.message = "Wrong Password.";
+            }
+            else {
+                response.Data = user.Id.ToString();
+            }
+
+            return response;
+
         }
 
         public async Task<ServiceResponse<int>> Register(User user, string password)
@@ -52,6 +69,22 @@ namespace rpg.Data
             {
                 passwordSalt = hmec.Key;
                 passwordHash = hmec.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }
+
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmec = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {
+                var computeHash = hmec.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                for (int i = 0; i < computeHash.Length; i++)
+                {
+                    if (computeHash[i] != passwordHash[i])
+                    {
+                        return false;
+                    }
+                }
+                return true;
             }
         }
     }
