@@ -10,5 +10,6 @@ namespace rpg.Models
         public int Intelligence { get; set; }
         public RpgClass Class { get; set; } = RpgClass.Knight;
         public User User { get; set; }
+        public Weapon Weapon { get; set; }
     }
 }

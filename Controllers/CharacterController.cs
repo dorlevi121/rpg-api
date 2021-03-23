@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using rpg.DTOs.Charecter;
 using rpg.Models;
@@ -17,17 +18,17 @@ namespace rpg.Controllers
     public class CharacterController : ControllerBase
     {
         private readonly ICharacterService _characterService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CharacterController(ICharacterService characterService)
+        public CharacterController(ICharacterService characterService, IHttpContextAccessor httpContextAccessor)
         {
             _characterService = characterService;
-
+            _httpContextAccessor = httpContextAccessor;
         }
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            int id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-            return Ok(await _characterService.GetAllCharacters(id));
+            return Ok(await _characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
