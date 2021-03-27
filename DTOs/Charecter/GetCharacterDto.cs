@@ -1,3 +1,4 @@
+using rpg.DTOs.Weapon;
 using rpg.Models;
 
 namespace rpg.DTOs.Charecter
@@ -11,6 +12,6 @@ namespace rpg.DTOs.Charecter
         public int Defense { get; set; }
         public int Intelligence { get; set; }
         public RpgClass Class { get; set; } = RpgClass.Knight;
-
+        public GetWeaponDto Weapon { get; set; }
     }
 }

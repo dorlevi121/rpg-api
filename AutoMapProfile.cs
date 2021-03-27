@@ -1,5 +1,6 @@
 using AutoMapper;
 using rpg.DTOs.Charecter;
+using rpg.DTOs.Weapon;
 using rpg.Models;
 
 namespace rpg
@@ -10,6 +11,7 @@ namespace rpg
         {
             CreateMap<Character, GetCharacterDto>();
             CreateMap<AddCharacterDto, Character>();
+            CreateMap<Weapon, GetWeaponDto>();
         }
 
     }
