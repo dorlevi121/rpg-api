@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using rpg.Data;
 using rpg.Services.CharacterService;
 using rpg.Services.CharacterSkillService;
+using rpg.Services.FightService;
 using rpg.Services.WeaponService;
 
 namespace rpg
@@ -35,6 +36,7 @@ namespace rpg
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IWeaponService, WeaponService>();
             services.AddScoped<ICharacterSkillService, CharacterSkillService>();
+            services.AddScoped<IFightService, FightService>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

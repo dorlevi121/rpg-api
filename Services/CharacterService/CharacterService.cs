@@ -49,7 +49,9 @@ namespace rpg.Services.CharacterService
         public async Task<ServiceResponse<GetCharacterDto>> GetCharacter(int id)
         {
             ServiceResponse<GetCharacterDto> serviceCharacter = new ServiceResponse<GetCharacterDto>();
-            Character dbCharacter = await _context.Characters.FirstOrDefaultAsync(c => c.Id == id);
+            Character dbCharacter = await _context.Characters
+            .Include(c => c.Weapon).Include(c => c.CharacterSkills).ThenInclude(c => c.Skill)
+            .FirstOrDefaultAsync(c => c.Id == id && c.User.Id == GetUserId());
             serviceCharacter.Data = _mapper.Map<GetCharacterDto>(dbCharacter);
             return serviceCharacter;
         }

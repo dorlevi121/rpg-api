@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ziKIxM6te1RX70VyaD2zGu9eZE7cCfMTgl3lz15nLp/8cPUTFxfs7qPBtbZMqvYQ5ZN3aBHY9RMkOMf/CjS7Aw==",
+  "dgSpecHash": "e6eeQLfBrw9Charuo7Gz6bFENgGvRp+OKIXilidOH3a5TyMdQ+7DGbcxhqrngJhVjWXg8bdO9ycU3DSl8PRFGA==",
   "success": true,
   "projectFilePath": "C:\\Users\\dorle\\Desktop\\workspace\\.NET Core\\rpg\\rpg.csproj",
   "expectedPackageFiles": [
@@ -102,7 +102,8 @@
     "C:\\Users\\dorle\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\dorle\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\dorle\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\dorle\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\dorle\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\dorle\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.14\\microsoft.netcore.app.host.win-x64.3.1.14.nupkg.sha512"
   ],
   "logs": []
 }
