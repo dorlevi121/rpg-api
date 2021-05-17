@@ -2,11 +2,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rpg.DTOs.Fight;
+using rpg.Models;
 using rpg.Services.FightService;
 
 namespace rpg.Controllers
 {
-    // [Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class FightController : ControllerBase
@@ -18,10 +19,26 @@ namespace rpg.Controllers
             _fightService = fightService;
         }
 
-        [HttpPost("Weapon")]
+        [HttpPost("weapon")]
         public async Task<IActionResult> WeaponAttack(WeaponAttackDto request)
         {
-            return Ok(await _fightService.WeaponAttack(request));
+            ServiceResponse<AttackResultDto> response = await _fightService.WeaponAttack(request);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpPost("skill")]
+        public async Task<IActionResult> SkilAttack(SkillAttackDto request)
+        {
+            ServiceResponse<AttackResultDto> response = await _fightService.SkillAttack(request);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
     }
 }
