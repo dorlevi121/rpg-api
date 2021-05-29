@@ -40,5 +40,16 @@ namespace rpg.Controllers
             }
             return Ok(response);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Fight(FightRequestDto request)
+        {
+            ServiceResponse<FightResultDto> response = await _fightService.Fight(request);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
     }
 }
