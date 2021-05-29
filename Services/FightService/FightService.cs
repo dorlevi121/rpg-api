@@ -8,6 +8,7 @@ using rpg.DTOs.Fight;
 using rpg.Models;
 using System.Linq;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace rpg.Services.FightService
 {
@@ -16,8 +17,10 @@ namespace rpg.Services.FightService
     {
         private readonly DataContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public FightService(DataContext context, IHttpContextAccessor httpContextAccessor)
+        private readonly IMapper _mapper;
+        public FightService(DataContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -222,6 +225,20 @@ namespace rpg.Services.FightService
 
             return response;
 
+        }
+
+        public async Task<ServiceResponse<List<HighScoreDto>>> GetHighScore()
+        {
+            List<Character> characters = await _context.Characters.Where(c => c.Fights > 0)
+            .OrderByDescending(c => c.Victories)
+            .ThenBy(c => c.Defeats).ToListAsync();
+
+            var response = new ServiceResponse<List<HighScoreDto>>
+            {
+                Data = characters.Select(c => _mapper.Map<HighScoreDto>(c)).ToList()
+            };
+
+            return response;
         }
     }
 }

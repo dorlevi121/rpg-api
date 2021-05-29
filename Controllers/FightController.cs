@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +46,17 @@ namespace rpg.Controllers
         public async Task<IActionResult> Fight(FightRequestDto request)
         {
             ServiceResponse<FightResultDto> response = await _fightService.Fight(request);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+
+                [HttpGet]
+        public async Task<IActionResult> GetHighScore()
+        {
+            ServiceResponse<List<HighScoreDto>> response = await _fightService.GetHighScore();
             if (response.Data == null)
             {
                 return NotFound(response);
